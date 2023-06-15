@@ -1,7 +1,7 @@
-import { Fragment } from 'react'
+import {Fragment, useRef} from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import {Link} from "@inertiajs/react";
+import {Head, Link, usePage} from "@inertiajs/react";
 import DarkmodeToggle from "@/Components/DarkmodeToggle.jsx";
 
 const user = {
@@ -11,10 +11,10 @@ const user = {
         'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-    { name: 'Home', href: route('home'), current: true },
-    { name: 'Acerca', href: route('about'), current: false },
-    { name: 'Proyectos', href: route('projects'), current: false },
-    { name: 'Blog', href: route('blog'), current: false },
+    { name: 'Home', href: route('home'), current: 'home' },
+    { name: 'Sobre mi', href: route('about'), current: 'about' },
+    { name: 'Proyectos', href: route('projects'), current: 'projects' },
+    { name: 'Blog', href: route('blog'), current: 'blog' },
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
@@ -26,24 +26,17 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function MainLayout({children, pageName}) {
+export default function MainLayout({children, pageName, title = ""}) {
     return (
         <>
-            {/*
-        This example requires updating your template:
-
-        ```
-        <html class="h-full bg-gray-100">
-        <body class="h-full">
-        ```
-      */}
-            <div className="min-h-full">
-                <div className="bg-gray-800 pb-32">
-                    <Disclosure as="nav" className="bg-gray-800">
+            <Head title={title} />
+            <div className="min-h-screen bg-white dark:bg-gray-900 ease-in duration-300">
+                <div className="bg-indigo-700 dark:bg-gray-900 pb-32 ease-in duration-300">
+                    <Disclosure as="nav" className="bg-indigo-900 dark:bg-gray-800">
                         {({ open }) => (
                             <>
                                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                                    <div className="border-b border-gray-700">
+
                                         <div className="flex h-16 items-center justify-between px-4 sm:px-0">
                                             <div className="flex items-center">
                                                 <div className="flex-shrink-0">
@@ -56,12 +49,12 @@ export default function MainLayout({children, pageName}) {
                                                                 key={item.name}
                                                                 href={item.href}
                                                                 className={classNames(
-                                                                    item.current
+                                                                    route().current(item.current)
                                                                         ? 'bg-gray-900 text-white'
                                                                         : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                                     'rounded-md px-3 py-2 text-sm font-medium'
                                                                 )}
-                                                                aria-current={item.current ? 'page' : undefined}
+                                                                aria-current={route().current(item.current) ? 'page' : undefined}
                                                             >
                                                                 {item.name}
                                                             </Link>
@@ -69,15 +62,17 @@ export default function MainLayout({children, pageName}) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            {
+                                                usePage().props.auth.user &&
                                             <div className="hidden md:block">
                                                 <div className="ml-4 flex items-center md:ml-6">
-                                                    <button
-                                                        type="button"
-                                                        className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                                    >
-                                                        <span className="sr-only">View notifications</span>
-                                                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                                    </button>
+                                                    {/*<button*/}
+                                                    {/*    type="button"*/}
+                                                    {/*    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"*/}
+                                                    {/*>*/}
+                                                    {/*    <span className="sr-only">View notifications</span>*/}
+                                                    {/*    <BellIcon className="h-6 w-6" aria-hidden="true" />*/}
+                                                    {/*</button>*/}
 
                                                     {/* Profile dropdown */}
                                                     <Menu as="div" className="relative ml-3">
@@ -117,6 +112,7 @@ export default function MainLayout({children, pageName}) {
                                                     </Menu>
                                                 </div>
                                             </div>
+                                            }
                                             <div className="-mr-2 flex md:hidden">
                                                 {/* Mobile menu button */}
                                                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -129,62 +125,72 @@ export default function MainLayout({children, pageName}) {
                                                 </Disclosure.Button>
                                             </div>
                                         </div>
-                                    </div>
+
                                 </div>
 
                                 <Disclosure.Panel className="border-b border-gray-700 md:hidden">
                                     <div className="space-y-1 px-2 py-3 sm:px-3">
                                         {navigation.map((item) => (
-                                            <Disclosure.Button
+                                            <Link
                                                 key={item.name}
                                                 as="a"
                                                 href={item.href}
                                                 className={classNames(
-                                                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                    route().current(item.current) ? 'bg-gray-900 text-white' : 'text-white hover:bg-gray-700 hover:text-white',
                                                     'block rounded-md px-3 py-2 text-base font-medium'
                                                 )}
-                                                aria-current={item.current ? 'page' : undefined}
+                                                aria-current={route().current(item.current) ? 'page' : undefined}
                                             >
                                                 {item.name}
-                                            </Disclosure.Button>
+                                            </Link>
                                         ))}
                                     </div>
-                                    <div className="border-t border-gray-700 pb-3 pt-4">
-                                        <div className="flex items-center px-5">
-                                            <div className="flex-shrink-0">
-                                                <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                                    {
+                                        usePage().props.auth.user &&
+                                        <div className="border-t border-gray-700 pb-3 pt-4">
+                                            <div className="flex items-center px-5">
+                                                <div className="flex-shrink-0">
+                                                    <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                                                </div>
+                                                <div className="ml-3">
+                                                    <div className="text-base font-medium leading-none text-white">{user.name}</div>
+                                                    <div className="text-sm font-medium leading-none text-white">{user.email}</div>
+                                                </div>
+                                                {/*<button*/}
+                                                {/*    type="button"*/}
+                                                {/*    className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"*/}
+                                                {/*>*/}
+                                                {/*    <span className="sr-only">View notifications</span>*/}
+                                                {/*    <BellIcon className="h-6 w-6" aria-hidden="true" />*/}
+                                                {/*</button>*/}
                                             </div>
-                                            <div className="ml-3">
-                                                <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                                                <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                                            <div className="mt-3 space-y-1 px-2">
+                                                {userNavigation.map((item) => (
+                                                    <Link
+                                                        key={item.name}
+                                                        as="a"
+                                                        href={item.href}
+                                                        className="block rounded-md px-3 py-2 text-base font-medium text-white hover:bg-gray-700 hover:text-white"
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                ))}
                                             </div>
-                                            <button
-                                                type="button"
-                                                className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                            >
-                                                <span className="sr-only">View notifications</span>
-                                                <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                            </button>
                                         </div>
-                                        <div className="mt-3 space-y-1 px-2">
-                                            {userNavigation.map((item) => (
-                                                <Disclosure.Button
-                                                    key={item.name}
-                                                    as="a"
-                                                    href={item.href}
-                                                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                                                >
-                                                    {item.name}
-                                                </Disclosure.Button>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    }
                                 </Disclosure.Panel>
                             </>
                         )}
                     </Disclosure>
                     <header className="py-10">
-                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center">
+                            { route().current('home') &&
+                                <img
+                                    className="h-32 rounded-full mr-4 w-auto"
+                                    src="https://pbs.twimg.com/profile_images/1570282197478739969/eKYIX6qh_400x400.jpg"
+                                    alt=""
+                                />
+                            }
                             <h1 className="text-3xl font-bold tracking-tight text-white">{pageName}</h1>
                         </div>
                     </header>

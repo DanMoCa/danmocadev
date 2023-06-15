@@ -20,7 +20,7 @@ export default function Welcome(){
     ];
 
     return (
-        <MainLayout pageName={"Hola, soy Dan!"}>
+        <MainLayout pageName={"Hola, soy Dan!"} title={"Home"}>
             <div className="space-y-4">
                 <Card className="space-y-6">
                     <h1 className="text-3xl font-bold">Bienvenido a mi sitio web!</h1>
@@ -28,7 +28,7 @@ export default function Welcome(){
                     <p>En esta página encontraras info como proyectos que he desarrollado y en los que estoy trabajando actualmente como side hustles</p>
                     <p>Y también un par de Blogs con tutoriales o tips que me vaya topando por ahí, y espero compartir con la comunidad hacker.</p>
                 </Card>
-                <SmallProjectList/>
+                {/*<SmallProjectList/>*/}
             </div>
         </MainLayout>
     );

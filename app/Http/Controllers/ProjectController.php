@@ -29,7 +29,6 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $this->authorizeForUser();
         return Inertia::render('Projects/CreateProject');
     }
 

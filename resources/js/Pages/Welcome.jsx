@@ -24,11 +24,11 @@ export default function Welcome(){
             <div className="space-y-4">
                 <Card className="space-y-6">
                     <h1 className="text-3xl font-bold">Bienvenido a mi sitio web!</h1>
-                    <p>Soy un Desarrollador Web Mexicano, me especializo principalmente en Laravel Framework y PHP 🐘 pero también se Javascript, algo de Java, Python y C#, actualmente estoy aprendiendo Rust y React para desarrollo Web3 👨‍💻</p>
+                    <p>Soy un Ingeniero de Software Mexicano, me especializo principalmente en Laravel Framework y PHP 🐘 pero también se Javascript, algo de Java, Python y C#, actualmente estoy aprendiendo Rust y React para desarrollo Web3 👨‍💻</p>
                     <p>En esta página encontraras info como proyectos que he desarrollado y en los que estoy trabajando actualmente como side hustles</p>
                     <p>Y también un par de Blogs con tutoriales o tips que me vaya topando por ahí, y espero compartir con la comunidad hacker.</p>
                 </Card>
-                {/*<SmallProjectList/>*/}
+                <SmallProjectList/>
             </div>
         </MainLayout>
     );

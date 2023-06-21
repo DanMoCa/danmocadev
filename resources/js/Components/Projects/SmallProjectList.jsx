@@ -13,9 +13,7 @@ export default function SmallProjectList({}){
         try {
             const response = await axios.get(route('smallprojects'));
             setTimeout(() => {
-
-                setProjects(response.data);
-
+                setProjects(response.data.projects);
             }, 500);
 
         }catch (e) {
@@ -43,7 +41,7 @@ export default function SmallProjectList({}){
                         <div className="flex-1 space-y-1">
                             <div className="flex items-center justify-between">
                                 <h3 className="text-sm font-medium">{project.name}</h3>
-                                <p className="text-sm ">{project.date}</p>
+                                {/*<p className="text-sm ">{project.date}</p>*/}
                             </div>
                             <p className="text-sm ">{project.description}</p>
                         </div>

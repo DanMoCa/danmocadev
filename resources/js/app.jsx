@@ -26,4 +26,4 @@ if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.match
     document.documentElement.classList.remove('dark')
 }
 
-console.log(localStorage.theme)
+// console.log(localStorage.theme)

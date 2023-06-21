@@ -20,11 +20,13 @@ export default function About(){
                     </p>
                     <p>
                         Durante mi trayecto he tenido la oportunidad de trabajar con otros tecnologias como:
-                        <ul className={"list-disc list-inside pl-4"}>
-                            <li>React</li>
-                            <li>Vue</li>
-                            <li>Docker</li>
-                        </ul>
+                    </p>
+                    <ul className={"list-disc list-inside pl-4"}>
+                        <li>React</li>
+                        <li>Vue</li>
+                        <li>Docker</li>
+                    </ul>
+                    <p>
                         Y algunos servicios en la nube como AWS y Digital Ocean
                     </p>
                     <p>
@@ -40,15 +42,8 @@ export default function About(){
                         Me gusta mucho jugar videojuegos, escuchar música, ver series, películas, anime, comics y manga, y últimamente adentrándome en el mundo indiehacker 👨‍💻  Si deseas platicar sobre alguno de estos hobbies
                         sientete libre de contactarme en mi <a href={"https://twitter.com/pankexillo"} target={"_blank"} className={"text-blue-500 font-bold hover:underline"}>Twitter</a>
                     </p>
-                    <h1 className={"text-xl font-bold"}>Donde me puedes encontrar?</h1>
-                    <p>
-                        <ul className={"list-disc list-inside pl-4"}>
-                            <li><a href={"https://twitter.com/pankexillo"} target={"_blank"} className={"text-blue-500 font-bold hover:underline"}>Twitter</a></li>
-                            <li><a href={"https://github.com/danmoca"} target={"_blank"} className={"text-blue-500 font-bold hover:underline"}>Github</a></li>
-                            <li><a href={"https://www.linkedin.com/in/danmoca"} target={"_blank"} className={"text-blue-500 font-bold hover:underline"}>LinkedIn</a></li>
-                            <li><a href={"https://indiepa.ge/danmoca"} target={"_blank"} className={"text-blue-500 font-bold hover:underline"}>indiepa.ge</a></li>
-                        </ul>
-                    </p>
+
+
                 </Card>
             </div>
         </MainLayout>
